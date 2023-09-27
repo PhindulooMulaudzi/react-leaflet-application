@@ -3,6 +3,7 @@ import 'leaflet/dist/leaflet.css';
 
 import {MapContainer, Marker, TileLayer, Popup} from 'react-leaflet';
 import {Icon} from 'leaflet';
+import MarkerClusterGroup from 'react-leaflet-cluster';
 
 function App () {
   const mapCenter = [-26.1856819, 28.0537364];
@@ -28,13 +29,16 @@ function App () {
         attribution="&copy; <a href=&quot;https://www.openstreetmap.org/copyright&quot;>OpenStreetMap</a> contributors"
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
       />
-      {mapMarkers.map (marker => {
-        return (
-          <Marker position={marker.geocode} icon={customIcon}>
-            <Popup>{marker.popup}</Popup>
-          </Marker>
-        );
-      })}
+
+      <MarkerClusterGroup>
+        {mapMarkers.map (marker => {
+          return (
+            <Marker position={marker.geocode} icon={customIcon}>
+              <Popup>{marker.popup}</Popup>
+            </Marker>
+          );
+        })}
+      </MarkerClusterGroup>
     </MapContainer>
   );
 }
